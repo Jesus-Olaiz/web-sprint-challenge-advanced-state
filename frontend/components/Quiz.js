@@ -82,8 +82,3 @@ const mapDispatch = dispatch => {
 
 export default connect(mapToProps, mapDispatch)(Quiz)
 
-/* 
-  useEffect() is used on the final product on bloomtech side, It allows for that awesome initial load effect dingus... use it.
-
-  stop being so proud and use chatGPT... IT EXISTS... CATCH UP.  
-*/

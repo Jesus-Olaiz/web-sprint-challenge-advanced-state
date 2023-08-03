@@ -52,9 +52,6 @@ export function resetForm() {
  }
 
 
-// VVVVVVVVVV HERE VVVVVVVVVVVVVVVVVV
-
-
 // ❗ Async action creators
 export function fetchQuiz() {
   
@@ -77,12 +74,7 @@ export function fetchQuiz() {
   }
 }
 
-/* 
-  WORKING WITH THIS CREATOR
-  Just logged to confirm props were being passed in. 
-  Again, they are... but before having any data in them.
-  VVVVV
-*/
+
 
 
 export function postAnswer(answerAndQuestion) {
