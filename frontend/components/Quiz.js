@@ -9,6 +9,9 @@ import { fetchQuiz, setQuiz, postAnswer, selectAnswer } from '../state/action-cr
 
 function Quiz(props) {
 
+
+
+
   return (
     <div id="wrapper">
       {
@@ -35,7 +38,7 @@ function Quiz(props) {
               
             </div>
 
-            <button onClick={() => props.postAnswer({quiz_id: props.quizId, answer_id: props.selected})} id="submitAnswerBtn">Submit answer</button>
+            <button onClick={() => props.postAnswer({quiz_id: props.quizId, answer_id: props.selected})} id="submitAnswerBtn" disabled={props.selected ? false : true}>Submit answer</button>
           </>
         ) : 'Loading next quiz...'
       }
