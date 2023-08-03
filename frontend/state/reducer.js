@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 
 
 import { INPUT_CHANGE, MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE,RESET_FORM,SET_INFO_MESSAGE, SET_QUIZ_INTO_STATE, SET_SELECTED_ANSWER } from './action-types'
-import { postQuiz } from './action-creators'
+
 
 const initialWheelState = 0
 function wheel(state = initialWheelState, action) {

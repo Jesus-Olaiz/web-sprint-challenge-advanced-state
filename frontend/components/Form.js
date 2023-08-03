@@ -26,7 +26,7 @@ export function Form(props) {
   const onSubmit = evt => {
     evt.preventDefault()
     
-    
+    props.resetForm
 
 
     props.postNewForm({
@@ -39,7 +39,7 @@ export function Form(props) {
   }
 
   return (
-    <form id="form" onSubmit={props.resetForm}>
+    <form id="form" onSubmit={onSubmit}>
       <h2>Create New Quiz</h2>
       <input value={props.newQuestion} maxLength={50} onChange={onChange} id="newQuestion" placeholder="Enter question" />
       <input value={props.newTrueAnswer} maxLength={50} onChange={onChange} id="newTrueAnswer" placeholder="Enter true answer" />

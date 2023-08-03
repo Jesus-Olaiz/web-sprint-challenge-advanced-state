@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import {connect} from 'react-redux'
 
@@ -9,7 +9,16 @@ import { fetchQuiz, setQuiz, postAnswer, selectAnswer } from '../state/action-cr
 
 function Quiz(props) {
 
-  
+ 
+
+
+
+
+  useEffect(() => {
+    if (props.quizId === '') {
+      props.fetchQuiz()
+    }
+  }, [])
 
 
 
@@ -59,23 +68,22 @@ const mapToProps = (state) => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchQuiz: dispatch(fetchQuiz()),
-    setQuiz: dispatch(setQuiz()),
+    fetchQuiz: () => dispatch(fetchQuiz()),
+    setQuiz: () => dispatch(setQuiz()),
 
 
-    /* 
-    WORKING ON THIS DISPATCH FUNCTION.
-    Proper props are being passed in, but it seems to be before they have been populated. 
-    vvvvvvv 
-    */
     postAnswer: (data) => {
       dispatch(postAnswer(data))
     },
-
-
 
     selectAnswer: (e) => dispatch(selectAnswer(e.target.parentElement.id))
   }
 }
 
 export default connect(mapToProps, mapDispatch)(Quiz)
+
+/* 
+  useEffect() is used on the final product on bloomtech side, It allows for that awesome initial load effect dingus... use it.
+
+  stop being so proud and use chatGPT... IT EXISTS... CATCH UP.  
+*/
