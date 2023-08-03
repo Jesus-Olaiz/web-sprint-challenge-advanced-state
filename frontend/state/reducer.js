@@ -1,23 +1,85 @@
 // ❗ You don't need to add extra reducers to achieve MVP
 import { combineReducers } from 'redux'
 
+
+import { INPUT_CHANGE, MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE,RESET_FORM,SET_INFO_MESSAGE, SET_QUIZ_INTO_STATE, SET_SELECTED_ANSWER } from './action-types'
+import { postQuiz } from './action-creators'
+
 const initialWheelState = 0
 function wheel(state = initialWheelState, action) {
-  return state
+  switch (action.type) {
+    case MOVE_CLOCKWISE:
+      console.log(state)
+      if(state === 5){
+        return (state = initialWheelState)
+      }
+    return (state+1)
+    case MOVE_COUNTERCLOCKWISE:
+      console.log(state)
+      if(state === 0){
+        return (state = 5)
+      }
+    return (state-1)
+    default: 
+    return state
+  }
 }
 
-const initialQuizState = null
+const initialQuizState = {
+  isFetching: true,
+  error: "",
+  quiz: {},
+  quiz_id: ""
+}
+
+// WE ARE TRYING TO GET THE NEW QUESTION TO LOAD.
+// CURRENTLY WORKING ON ACTION CREATOR
 function quiz(state = initialQuizState, action) {
-  return state
+  switch(action.type){
+    case SET_QUIZ_INTO_STATE: 
+         
+      if(action.payload){
+        state = {...state, quiz: {...action.payload} , isFetching: false, quiz_id: action.payload.quiz_id}
+        return state
+      }
+      state = {...initialQuizState}
+      return state
+
+    case SET_SELECTED_ANSWER: 
+      state = {...state, answer_id : action.payload}
+      return state
+     
+    default: return state
+  }
 }
 
 const initialSelectedAnswerState = null
 function selectedAnswer(state = initialSelectedAnswerState, action) {
+  
+  switch(action.type){
+    case SET_SELECTED_ANSWER:
+      if(action.payload){
+        state = action.payload
+      
+        return state
+      }
+      state = initialSelectedAnswerState
+      return state
+      
+  }
   return state
 }
 
 const initialMessageState = ''
 function infoMessage(state = initialMessageState, action) {
+  switch(action.type){
+    case SET_INFO_MESSAGE: 
+    
+    state = action.payload
+
+    console.log(state)
+    return state  
+  }
   return state
 }
 
@@ -27,6 +89,14 @@ const initialFormState = {
   newFalseAnswer: '',
 }
 function form(state = initialFormState, action) {
+  switch(action.type){
+    case INPUT_CHANGE: 
+    state = {...state, ...action.payload.e}
+    return state
+    case RESET_FORM: 
+    state = null
+    return state
+  }
   return state
 }
 
