@@ -32,8 +32,7 @@ const initialQuizState = {
   quiz_id: ""
 }
 
-// WE ARE TRYING TO GET THE NEW QUESTION TO LOAD.
-// CURRENTLY WORKING ON ACTION CREATOR
+
 function quiz(state = initialQuizState, action) {
   switch(action.type){
     case SET_QUIZ_INTO_STATE: 
@@ -94,7 +93,9 @@ function form(state = initialFormState, action) {
     state = {...state, ...action.payload.e}
     return state
     case RESET_FORM: 
-    state = null
+    console.log(state)
+    state = {...initialFormState}
+    console.log(state)
     return state
   }
   return state

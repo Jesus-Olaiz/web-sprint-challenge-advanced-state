@@ -105,7 +105,6 @@ export function postAnswer(answerAndQuestion) {
   }
 
 export function postQuiz(e) {
-  console.log(e)
   return function (dispatch) {
     
 
@@ -113,11 +112,13 @@ export function postQuiz(e) {
     .then(res => {
       if (res.status === 201){
         dispatch(setMessage(`Congrats: "${e.question_text}" is a great question!`))
+        
       }
     })
     .then(() => {
       dispatch(resetForm())
     })
+    
     // On successful POST:
     // - Dispatch the correct message to the the appropriate state
     // - Dispatch the resetting of the form
