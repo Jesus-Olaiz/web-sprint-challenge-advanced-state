@@ -80,8 +80,10 @@ export function fetchQuiz() {
 export function postAnswer(answerAndQuestion) {
   return function (dispatch) {
     axios.post('http://localhost:9000/api/quiz/answer', answerAndQuestion)
-    .then(res => dispatch(setMessage(res.data.message)))
-    .then(() => {dispatch(fetchQuiz())})
+    .then(res => {dispatch(setMessage(res.data.message))})
+    .then(() => {
+      dispatch(fetchQuiz())
+    })
     .catch(err => {
       dispatch(setMessage(err.message))})
 
@@ -96,15 +98,15 @@ export function postAnswer(answerAndQuestion) {
     // - Dispatch the fetching of the next quiz
   }
 
-export function postQuiz(e) {
+export function postQuiz(data) {
   return function (dispatch) {
     
 
-    axios.post("http://localhost:9000/api/quiz/new", e)
+    axios.post("http://localhost:9000/api/quiz/new", data)
     .then(res => {
+      console.log(res)
       if (res.status === 201){
-        dispatch(setMessage(`Congrats: "${e.question_text}" is a great question!`))
-        
+        dispatch(setMessage(`Congrats: "${data.question_text}" is a great question!`))
       }
     })
     .then(() => {

@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as actionCreators from '../state/action-creators'
 
-import { inputChange } from '../state/action-creators'
+import { inputChange, postQuiz, resetForm  } from '../state/action-creators'
 
 export function Form(props) {
 
@@ -26,7 +25,7 @@ export function Form(props) {
   const onSubmit = evt => {
     evt.preventDefault()
     
-    props.resetForm
+  
 
 
     props.postNewForm({
@@ -57,11 +56,13 @@ const mapToProps = (state) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = dispatch => {
   return {
     setState: (e) => dispatch(inputChange(e)),
-    postNewForm : (e) => {dispatch(actionCreators.postQuiz(e))},
-    resetForm : () => dispatch(actionCreators.resetForm)
+    postNewForm : (data) => {
+      dispatch(postQuiz(data))
+    },
+    resetForm : () => dispatch(resetForm)
   }
 }
 

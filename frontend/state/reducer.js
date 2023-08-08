@@ -9,13 +9,11 @@ const initialWheelState = 0
 function wheel(state = initialWheelState, action) {
   switch (action.type) {
     case MOVE_CLOCKWISE:
-      console.log(state)
       if(state === 5){
         return (state = initialWheelState)
       }
     return (state+1)
     case MOVE_COUNTERCLOCKWISE:
-      console.log(state)
       if(state === 0){
         return (state = 5)
       }
@@ -93,9 +91,7 @@ function form(state = initialFormState, action) {
     state = {...state, ...action.payload.e}
     return state
     case RESET_FORM: 
-    console.log(state)
     state = {...initialFormState}
-    console.log(state)
     return state
   }
   return state
