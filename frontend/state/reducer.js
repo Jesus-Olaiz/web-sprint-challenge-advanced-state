@@ -32,6 +32,7 @@ const initialQuizState = {
 
 
 function quiz(state = initialQuizState, action) {
+
   switch(action.type){
     case SET_QUIZ_INTO_STATE: 
          
@@ -58,7 +59,7 @@ function selectedAnswer(state = initialSelectedAnswerState, action) {
       if(action.payload){
         state = action.payload
       
-        return state
+      
       }
       state = initialSelectedAnswerState
       return state
@@ -74,7 +75,6 @@ function infoMessage(state = initialMessageState, action) {
     
     state = action.payload
 
-    console.log(state)
     return state  
   }
   return state

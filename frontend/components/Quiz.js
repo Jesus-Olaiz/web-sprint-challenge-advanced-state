@@ -2,20 +2,31 @@ import React, {useEffect} from 'react'
 
 import {connect} from 'react-redux'
 
-import { fetchQuiz, setQuiz, postAnswer, selectAnswer } from '../state/action-creators'
+import { fetchQuiz, setQuiz, postAnswer, selectAnswer, setMessage } from '../state/action-creators'
 
 
 
 
 function Quiz(props) {
 
+  const handleClick = (x) => {
+    props.selectAnswer(x)
+  }
  
 
+  const handleSubmit = async (x) => {
+    
+    await props.postAnswer({
+      quiz_id: props.quizId,
+      answer_id: x
+    })
 
+
+  }
 
 
   useEffect(() => {
-    if (props.quizId === '') {
+    if (props.quizId.length < 1) {
       props.fetchQuiz()
     }
   }, [])
@@ -38,7 +49,7 @@ function Quiz(props) {
 
                 <div key={x.answer_id} id={x.answer_id} className={`answer ${props.selected === x.answer_id ? 'selected' : null}`}>
                   {x.text}
-                  <button onClick={props.selectAnswer}>
+                  <button id = {x.answer_id} onClick={() => handleClick(x.answer_id)}>
                     {x.answer_id === props.selected ? 'SELECTED' : 'Select'}
                   </button>
                 </div>
@@ -48,7 +59,7 @@ function Quiz(props) {
               
             </div>
 
-            <button onClick={() => props.postAnswer({quiz_id: props.quizId, answer_id: props.selected})} id="submitAnswerBtn" disabled={props.selected ? false : true}>Submit answer</button>
+            <button onClick={() => handleSubmit(props.selected)} id="submitAnswerBtn" disabled={props.selected ? false : true}>Submit answer</button>
           </>
         ) : 'Loading next quiz...'
       }
@@ -57,26 +68,28 @@ function Quiz(props) {
 }
 
 const mapToProps = (state) => {
+  console.log(state.quiz)
   return {
     quizState: state.quiz,
-    isFetching: state.isFetching,
+    isFetching: state.quiz.isFetching,
     error : state.error, 
     quizId: state.quiz.quiz_id,
-    selected: state.selectedAnswer
+    selected: state.quiz.answer_id
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     fetchQuiz: () => dispatch(fetchQuiz()),
     setQuiz: () => dispatch(setQuiz()),
 
 
-    postAnswer: (data) => {
-      dispatch(postAnswer(data))
-    },
+    postAnswer: (data) => dispatch(postAnswer(data)),
 
-    selectAnswer: (e) => dispatch(selectAnswer(e.target.parentElement.id))
+    selectAnswer: (e) => dispatch(selectAnswer(e)),
+
+
+    // clearMessage: () => dispatch(setMessage(null))
   }
 }
 

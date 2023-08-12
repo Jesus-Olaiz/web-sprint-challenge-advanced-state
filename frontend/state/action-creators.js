@@ -18,6 +18,7 @@ export function moveCounterClockwise() {
  }
 
 export function selectAnswer(answer) { 
+  
   return {
     type: SET_SELECTED_ANSWER,
     payload: answer
@@ -78,16 +79,22 @@ export function fetchQuiz() {
 
 
 export function postAnswer(answerAndQuestion) {
-  return function (dispatch) {
-    axios.post('http://localhost:9000/api/quiz/answer', answerAndQuestion)
-    .then(res => {dispatch(setMessage(res.data.message))})
-    .then(() => {
-      dispatch(fetchQuiz())
-    })
-    .catch(err => {
-      dispatch(setMessage(err.message))})
+  console.log(answerAndQuestion)
+  
+  return async function (dispatch) {
+    
 
-    dispatch(fetchQuiz())
+    const res = await axios.post('http://localhost:9000/api/quiz/answer', {...answerAndQuestion})
+    console.log(res)
+    if (res.status === 200) {
+      console.log(res.status)
+      dispatch(selectAnswer(null))
+      dispatch(setMessage(res.data.message))
+      
+  
+      dispatch(fetchQuiz())
+    }
+    
     
     
   }
@@ -108,10 +115,14 @@ export function postQuiz(data) {
       if (res.status === 201){
         dispatch(setMessage(`Congrats: "${data.question_text}" is a great question!`))
       }
+      else{
+        return res
+      }
     })
     .then(() => {
       dispatch(resetForm())
     })
+    .catch(err => {console.log(err)})
     
     // On successful POST:
     // - Dispatch the correct message to the the appropriate state

@@ -26,6 +26,7 @@ export function Form(props) {
     evt.preventDefault()
     
   
+    console.log(props)
 
 
     props.postNewForm({
@@ -43,17 +44,20 @@ export function Form(props) {
       <input value={props.newQuestion} maxLength={50} onChange={onChange} id="newQuestion" placeholder="Enter question" />
       <input value={props.newTrueAnswer} maxLength={50} onChange={onChange} id="newTrueAnswer" placeholder="Enter true answer" />
       <input value={props.newFalseAnswer} maxLength={50} onChange={onChange} id="newFalseAnswer" placeholder="Enter false answer" />
-      <button id="submitNewQuizBtn" onClick={onSubmit} disabled={inputCheck()}>Submit new quiz</button>
+      <button id="submitNewQuizBtn" onClick={() => onSubmit} disabled={inputCheck()}>Submit new quiz</button>
     </form>
   )
 }
 
 const mapToProps = (state) => {
-  return {
-    newQuestion: state.form.newQuestion,
-    newTrueAnswer: state.form.newTrueAnswer,
-    newFalseAnswer: state.form.newFalseAnswer
-  }
+  console.log(state.form)
+  return (
+    {
+      newQuestion: state.form.newQuestion,
+      newTrueAnswer: state.form.newTrueAnswer,
+      newFalseAnswer: state.form.newFalseAnswer
+    }
+  )
 }
 
 const mapDispatch = dispatch => {
